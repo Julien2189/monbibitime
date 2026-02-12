@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>BibiTime - Suivi biberons & changes</title>
+    <title>MonBibiTime - Suivi biberons & changes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
@@ -161,7 +161,7 @@
         }
 
         input[type="number"] {
-            -moz-appearance: textfield;
+             -moz-appearance: textfield;
         }
 
         .checkbox-row {
@@ -329,11 +329,175 @@
             border-color: var(--accent);
             box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
         }
+
+        .bibitime-stats-root {
+    --accent: #38bdf8;
+    --accent-soft: #FFFFFF;
+    --text: #111827;
+    --muted: #FFFFFF;
+    --radius: 18px;
+
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    /* 📌 Nouvelle méthode → Full width propre */
+    width: 100%;
+    max-width: none !important;      /* on supprime la limite du thème */
+    padding-left: 0;
+    padding-right: 0;
+
+    /* 📌 Centre + limite interne */
+    display: flex;
+    justify-content: center;
+}
+.bibitime-stats-root {
+    position: relative;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    display: flex;
+    justify-content: center;
+}
+
+
+.bibitime-stats-card {
+    width: 100%;
+    max-width: 1100px;               /* 👉 largeur identique à bibitime */
+    margin: 2rem 1rem;
+}
+
+
+.bibitime-stats-chart-wrapper canvas {
+    width: 100%;         /* ✔ responsive */
+    max-width: 1100px;   /* ✔ aligné avec bibitime */
+    max-height: 360px;
+}
+/* 📱 Sur mobile : graphique plus grand, plus lisible */
+@media (max-width: 768px) {
+  .bibitime-stats-chart-wrapper canvas {
+    max-height: 550px !important;
+  }
+
+  .bibitime-stats-card {
+    padding: 1rem 1rem 1.5rem;
+  }
+
+  .bibitime-stats-header h2 {
+    font-size: 1.25rem;
+  }
+}
+
+
+    .bibitime-stats-card {
+        padding: 1rem 1rem 1.5rem;      /* un peu plus compact */
+    }
+
+    .bibitime-stats-header h2 {
+        font-size: 1.25rem;             /* titre un peu plus gros */
+    }
+
+
+        .bibitime-stats-root.bibitime-stats-dark {
+    --bg-card: #020617;  /* ou la couleur que tu veux */
+    color: #f9fafb;
+     border: 1px solid rgba(255, 255, 255, 0.35);
+       border-radius: var(--radius);
+
+}
+.bibitime-stats-card {
+    background: var(--bg-card);
+}
+
+        .bibitime-stats-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+            padding: 1.4rem 1.5rem 1.6rem;
+            
+        }
+        .bibitime-stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .bibitime-stats-header h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+        }
+        .bibitime-stats-header h2 span { font-size: 1.2rem; }
+        .bibitime-stats-header small {
+            display: block;
+            margin-top: .15rem;
+            font-size: .8rem;
+            color: var(--muted);
+        }
+        .bibitime-stats-filters {
+            display: flex;
+            flex-direction: column;
+            gap: .35rem;
+            min-width: 220px;
+        }
+        .bibitime-stats-filters label {
+            font-size: .8rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: .35rem;
+        }
+        .bibitime-stats-filters select {
+            width: 100%;
+            min-height: 3.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(148,163,184,0.7);
+            font-size: .85rem;
+            padding: .35rem .5rem;
+        }
+        .bibitime-stats-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            padding: .2rem .5rem;
+            border-radius: 999px;
+            font-size: .75rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            margin-top: .3rem;
+        }
+        .bibitime-stats-info {
+            margin-top: .5rem;
+            font-size: .8rem;
+            color: var(--muted);
+        }
+        .bibitime-stats-chart-wrapper {
+            margin-top: 1rem;
+        }
+
+.bibitime-stats-chart-wrapper canvas {
+    width: 100%;         /* ✔ responsive */
+    max-width: 1100px;   /* ✔ aligné avec bibitime */
+    max-height: 360px;
+}
+
+ .card2 {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.9));
+            border-radius: var(--radius);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.8);
+            padding: 1.2rem;
+            backdrop-filter: blur(16px);
+        }
     </style>
 </head>
 <body>
 <header>
-    <h1><span class="icon">🍼</span> BibiTime</h1>
+    <h1><span class="icon">🍼</span> MonBibiTime</h1>
         <div class="subtitle">
             Suivi quotidien des biberons et des changes de bébé.
         </div>
@@ -452,10 +616,10 @@
 </section>
 
   
-    </div>
+    
 
     <!-- Récapitulatif du jour -->
-    <section class="card recap-card">
+    <section class="card">
         <div class="recap-header">
             <div>
                 <h2>📊 Récapitulatif du jour</h2>
@@ -470,347 +634,629 @@
         </div>
     </section>
    
+         <div class="bibitime-stats-card">
+            <div class="bibitime-stats-header">
+                <div>
+                    <h2><span>📈</span> Évolution des biberons</h2>
+                    <small>
+                        Compare les <strong>totaux bu (ml)</strong> sur plusieurs jours pour voir la progression ou la régression.
+                    </small>
+                    <div class="bibitime-stats-tag">Sélectionne 2 dates ou plus pour une comparaison fine.</div>
+                    <div id="bibitimeStatsInfo" class="bibitime-stats-info">
+                        Chargement des données...
+                    </div>
+                </div>
+                <div class="bibitime-stats-filters">
+                    <label for="bibitimeStatsDates">
+                        Dates disponibles (multi-sélection) :
+                    </label>
+                    <select id="bibitimeStatsDates" multiple></select>
+                    <small>
+                        Astuce : Ctrl/Cmd + clic pour sélectionner plusieurs dates.
+                    </small>
+                </div>
+            </div>
+
+            <div class="bibitime-stats-chart-wrapper">
+                <canvas id="bibitimeStatsChart"></canvas>
+            </div>
+        </div>
+   </div>
 </main>
 
 <!-- jsPDF pour l'export PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
-    const dateInput = document.getElementById('dateJour');
-    const tableBiberonsBody = document.getElementById('tableBiberonsBody');
-    const tableChangesBody = document.getElementById('tableChangesBody');
-    const formBiberon = document.getElementById('formBiberon');
-    const formChange = document.getElementById('formChange');
-    const heureBiberonInput = document.getElementById('heureBiberon');
-    const quantiteBiberonInput = document.getElementById('quantiteBiberon');
-    const heureChangeInput = document.getElementById('heureChange');
-    const changeUrineInput = document.getElementById('changeUrine');
-    const changeSellesInput = document.getElementById('changeSelles');
-    const recapContent = document.getElementById('recapContent');
-    const btnExportPdf = document.getElementById('btnExportPdf');
+  // ----- DOM -----
+  const dateInput = document.getElementById('dateJour');
 
-    let currentData = { biberons: [], changes: [] };
+  const tableBiberonsBody = document.getElementById('tableBiberonsBody');
+  const tableChangesBody = document.getElementById('tableChangesBody');
+  const tableCommentairesBody = document.getElementById('tableCommentairesBody');
 
-    function getTodayStr() {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    }
+  const formBiberon = document.getElementById('formBiberon');
+  const formChange = document.getElementById('formChange');
+  const formCommentaire = document.getElementById('formCommentaire');
 
-    function getCurrentTimeStr() {
-        const now = new Date();
-        const h = String(now.getHours()).padStart(2, '0');
-        const m = String(now.getMinutes()).padStart(2, '0');
-        return `${h}:${m}`;
-    }
+  const heureBiberonInput = document.getElementById('heureBiberon');
+  const quantiteBiberonInput = document.getElementById('quantiteBiberon');
 
-    function formatFrenchDate(dateStr) {
-        if (!dateStr) return '-';
-        const parts = dateStr.split('-');
-        if (parts.length !== 3) return dateStr;
-        const [y, m, d] = parts;
-        return `${d}/${m}/${y}`;
-    }
+  const heureChangeInput = document.getElementById('heureChange');
+  const changeUrineInput = document.getElementById('changeUrine');
+  const changeSellesInput = document.getElementById('changeSelles');
 
-    function getStorageKey() {
-        return 'suivi-bebe-' + dateInput.value;
-    }
+  const heureCommentaireInput = document.getElementById('heureCommentaire');
+  const texteCommentaireInput = document.getElementById('texteCommentaire');
 
-    function ensureIds() {
-        // ajoute un id unique à chaque biberon / change s'il n'existe pas (pour les anciennes données)
-        currentData.biberons.forEach((b, idx) => {
-            if (!b.id) {
-                b.id = 'bib-' + Date.now() + '-' + idx + '-' + Math.random().toString(16).slice(2);
-            }
-        });
-        currentData.changes.forEach((c, idx) => {
-            if (!c.id) {
-                c.id = 'chg-' + Date.now() + '-' + idx + '-' + Math.random().toString(16).slice(2);
-            }
-        });
-    }
+  const recapContent = document.getElementById('recapContent');
+  const btnExportPdf = document.getElementById('btnExportPdf');
 
-    function loadForCurrentDate() {
-        const saved = localStorage.getItem(getStorageKey());
-        if (saved) {
-            try {
-                currentData = JSON.parse(saved);
-                if (!currentData.biberons) currentData.biberons = [];
-                if (!currentData.changes) currentData.changes = [];
-            } catch (e) {
-                currentData = { biberons: [], changes: [] };
-            }
-        } else {
-            currentData = { biberons: [], changes: [] };
-        }
-        ensureIds();
-        saveCurrentData(); // pour mettre à jour les anciens en localStorage
-        renderTables();
-    }
+  // ----- DATA -----
+  let currentData = { biberons: [], changes: [], commentaires: [] };
 
-    function saveCurrentData() {
-        localStorage.setItem(getStorageKey(), JSON.stringify(currentData));
-    }
+  function getTodayStr() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 
-    function updateRecap() {
-        const dateFr = formatFrenchDate(dateInput.value);
-        const nbBiberons = currentData.biberons.length;
-        const totalMl = currentData.biberons.reduce((sum, b) => sum + (b.quantite || 0), 0);
-        const sortedBib = [...currentData.biberons].sort((a, b) => a.heure.localeCompare(b.heure));
-        const sortedCh = [...currentData.changes].sort((a, b) => a.heure.localeCompare(b.heure));
+  function getCurrentTimeStr() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    return `${h}:${m}`;
+  }
 
-        let html = '';
+  function formatFrenchDate(dateStr) {
+    if (!dateStr) return '-';
+    const parts = dateStr.split('-');
+    if (parts.length !== 3) return dateStr;
+    const [y, m, d] = parts;
+    return `${d}/${m}/${y}`;
+  }
 
-        html += `<p><strong>Date :</strong> ${dateFr}</p>`;
-        html += `<p><strong>Biberons :</strong> ${nbBiberons} pour un total de <strong>${totalMl} ml</strong></p>`;
+  function getStorageKey() {
+    return 'suivi-bebe-' + dateInput.value;
+  }
 
-        if (!sortedBib.length) {
-            html += `<p class="recap-muted">Aucun biberon saisi pour cette date.</p>`;
-        } else {
-            html += `<ul class="recap-list">`;
-            sortedBib.forEach(bib => {
-                html += `<li>${bib.heure} — ${bib.quantite} ml</li>`;
-            });
-            html += `</ul>`;
-        }
-
-        html += `<p><strong>Changes :</strong> ${sortedCh.length}</p>`;
-
-        if (!sortedCh.length) {
-            html += `<p class="recap-muted">Aucun change saisi pour cette date.</p>`;
-        } else {
-            html += `<ul class="recap-list">`;
-            sortedCh.forEach(ch => {
-                const types = [];
-                if (ch.urine) types.push('urine');
-                if (ch.selles) types.push('selles');
-                html += `<li>${ch.heure} — ${types.join(' + ')}</li>`;
-            });
-            html += `</ul>`;
-        }
-
-        recapContent.innerHTML = html;
-    }
-
-    function renderTables() {
-        // Biberons
-        tableBiberonsBody.innerHTML = '';
-        if (!currentData.biberons.length) {
-            const tr = document.createElement('tr');
-            tr.classList.add('empty-row');
-            const td = document.createElement('td');
-            td.colSpan = 3;
-            td.textContent = 'Aucun biberon saisi pour cette date.';
-            tr.appendChild(td);
-            tableBiberonsBody.appendChild(tr);
-        } else {
-            const sorted = [...currentData.biberons].sort((a, b) => a.heure.localeCompare(b.heure));
-            sorted.forEach(bib => {
-                const tr = document.createElement('tr');
-                const tdHeure = document.createElement('td');
-                const tdQuantite = document.createElement('td');
-                const tdX = document.createElement('td');
-
-                tdHeure.textContent = bib.heure;
-                tdQuantite.textContent = bib.quantite + ' ml';
-
-                const btn = document.createElement('button');
-                btn.textContent = '✕';
-                btn.className = 'btn-x btn-delete-bib';
-                btn.dataset.id = bib.id;
-                tdX.appendChild(btn);
-
-                tr.appendChild(tdHeure);
-                tr.appendChild(tdQuantite);
-                tr.appendChild(tdX);
-                tableBiberonsBody.appendChild(tr);
-            });
-        }
-
-        // Changes
-        tableChangesBody.innerHTML = '';
-        if (!currentData.changes.length) {
-            const tr = document.createElement('tr');
-            tr.classList.add('empty-row');
-            const td = document.createElement('td');
-            td.colSpan = 4;
-            td.textContent = 'Aucun change saisi pour cette date.';
-            tr.appendChild(td);
-            tableChangesBody.appendChild(tr);
-        } else {
-            const sortedC = [...currentData.changes].sort((a, b) => a.heure.localeCompare(b.heure));
-            sortedC.forEach(ch => {
-                const tr = document.createElement('tr');
-                const tdHeure = document.createElement('td');
-                const tdUrine = document.createElement('td');
-                const tdSelles = document.createElement('td');
-                const tdX = document.createElement('td');
-
-                tdHeure.textContent = ch.heure;
-                tdUrine.textContent = ch.urine ? 'Oui' : '-';
-                tdSelles.textContent = ch.selles ? 'Oui' : '-';
-
-                const btn = document.createElement('button');
-                btn.textContent = '✕';
-                btn.className = 'btn-x btn-delete-change';
-                btn.dataset.id = ch.id;
-                tdX.appendChild(btn);
-
-                tr.appendChild(tdHeure);
-                tr.appendChild(tdUrine);
-                tr.appendChild(tdSelles);
-                tr.appendChild(tdX);
-                tableChangesBody.appendChild(tr);
-            });
-        }
-
-        // Met à jour le récap
-        updateRecap();
-    }
-
-    function refreshDefaultTimes() {
-        const nowStr = getCurrentTimeStr();
-        heureBiberonInput.value = nowStr;
-        heureChangeInput.value = nowStr;
-    }
-
-    // Changement de date
-    dateInput.addEventListener('change', () => {
-        loadForCurrentDate();
-        refreshDefaultTimes();
+  function ensureIds() {
+    // biberons
+    currentData.biberons.forEach((b, idx) => {
+      if (!b.id) b.id = 'bib-' + Date.now() + '-' + idx + '-' + Math.random().toString(16).slice(2);
     });
 
-    // Formulaire biberon
-    formBiberon.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const heure = heureBiberonInput.value || getCurrentTimeStr();
-        const quantite = parseInt(quantiteBiberonInput.value, 10);
-
-        if (isNaN(quantite)) {
-            alert('Merci de saisir une quantité valide.');
-            return;
-        }
-
-        const id = 'bib-' + Date.now() + '-' + Math.random().toString(16).slice(2);
-        currentData.biberons.push({ id, heure, quantite });
-        saveCurrentData();
-        renderTables();
-
-        formBiberon.reset();
-        refreshDefaultTimes();
+    // changes
+    currentData.changes.forEach((c, idx) => {
+      if (!c.id) c.id = 'chg-' + Date.now() + '-' + idx + '-' + Math.random().toString(16).slice(2);
     });
 
-    // Formulaire change
-    formChange.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const heure = heureChangeInput.value || getCurrentTimeStr();
-        const urine = changeUrineInput.checked;
-        const selles = changeSellesInput.checked;
-
-        if (!urine && !selles) {
-            alert('Coche au moins Urine ou Selles pour le change.');
-            return;
-        }
-
-        const id = 'chg-' + Date.now() + '-' + Math.random().toString(16).slice(2);
-        currentData.changes.push({ id, heure, urine, selles });
-        saveCurrentData();
-        renderTables();
-
-        formChange.reset();
-        refreshDefaultTimes();
+    // commentaires
+    currentData.commentaires.forEach((c, idx) => {
+      if (!c.id) c.id = 'com-' + Date.now() + '-' + idx + '-' + Math.random().toString(16).slice(2);
     });
+  }
 
-    // Suppression biberon (delegation)
-    tableBiberonsBody.addEventListener('click', (e) => {
-        const btn = e.target.closest('.btn-delete-bib');
-        if (!btn) return;
-        const id = btn.dataset.id;
-        currentData.biberons = currentData.biberons.filter(b => b.id !== id);
-        saveCurrentData();
-        renderTables();
-    });
+  function loadForCurrentDate() {
+    const saved = localStorage.getItem(getStorageKey());
 
-    // Suppression change (delegation)
-    tableChangesBody.addEventListener('click', (e) => {
-        const btn = e.target.closest('.btn-delete-change');
-        if (!btn) return;
-        const id = btn.dataset.id;
-        currentData.changes = currentData.changes.filter(c => c.id !== id);
-        saveCurrentData();
-        renderTables();
-    });
+    if (saved) {
+      try {
+        currentData = JSON.parse(saved) || {};
+      } catch (e) {
+        currentData = {};
+      }
+    } else {
+      currentData = {};
+    }
 
-    // Export PDF
-    function exportPdf() {
-        if (!window.jspdf || !window.jspdf.jsPDF) {
-            alert('La bibliothèque jsPDF ne s’est pas chargée correctement.');
-            return;
-        }
+    // fallback safe
+    if (!Array.isArray(currentData.biberons)) currentData.biberons = [];
+    if (!Array.isArray(currentData.changes)) currentData.changes = [];
+    if (!Array.isArray(currentData.commentaires)) currentData.commentaires = [];
 
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+    ensureIds();
+    saveCurrentData(); // upgrade old saved data
+    renderTables();
+  }
 
-        let y = 10;
-        const dateFr = formatFrenchDate(dateInput.value);
-        const totalMl = currentData.biberons.reduce((sum, b) => sum + (b.quantite || 0), 0);
+  function saveCurrentData() {
+    localStorage.setItem(getStorageKey(), JSON.stringify(currentData));
+  }
 
-        doc.setFontSize(14);
-        doc.text(`Suivi bébé - ${dateFr}`, 10, y);
-        y += 8;
+  function updateRecap() {
+    const dateFr = formatFrenchDate(dateInput.value);
 
-        // Biberons
-        doc.setFontSize(12);
-        doc.text(`Biberons (${currentData.biberons.length})`, 10, y);
-        y += 6;
+    const nbBiberons = currentData.biberons.length;
+    const totalMl = currentData.biberons.reduce((sum, b) => sum + (b.quantite || 0), 0);
 
-        const sortedBib = [...currentData.biberons].sort((a, b) => a.heure.localeCompare(b.heure));
-        if (!sortedBib.length) {
-            doc.text('Aucun biberon saisi.', 14, y);
-            y += 6;
-        } else {
-            sortedBib.forEach(bib => {
-                if (y > 280) { doc.addPage(); y = 10; }
-                doc.text(`- ${bib.heure} : ${bib.quantite} ml`, 14, y);
-                y += 6;
-            });
-        }
+    const sortedBib = [...currentData.biberons].sort((a, b) => a.heure.localeCompare(b.heure));
+    const sortedCh = [...currentData.changes].sort((a, b) => a.heure.localeCompare(b.heure));
+    const sortedCom = [...currentData.commentaires].sort((a, b) => a.heure.localeCompare(b.heure));
 
+    let html = '';
+    html += `<p><strong>Date :</strong> ${dateFr}</p>`;
+
+    // biberons
+    html += `<p><strong>Biberons :</strong> ${nbBiberons} pour un total de <strong>${totalMl} ml</strong></p>`;
+    if (!sortedBib.length) {
+      html += `<p class="recap-muted">Aucun biberon saisi pour cette date.</p>`;
+    } else {
+      html += `<ul class="recap-list">`;
+      sortedBib.forEach(bib => {
+        html += `<li>${bib.heure} — ${bib.quantite} ml</li>`;
+      });
+      html += `</ul>`;
+    }
+
+    // changes
+    html += `<p><strong>Changes :</strong> ${sortedCh.length}</p>`;
+    if (!sortedCh.length) {
+      html += `<p class="recap-muted">Aucun change saisi pour cette date.</p>`;
+    } else {
+      html += `<ul class="recap-list">`;
+      sortedCh.forEach(ch => {
+        const types = [];
+        if (ch.urine) types.push('urine');
+        if (ch.selles) types.push('selles');
+        html += `<li>${ch.heure} — ${types.join(' + ')}</li>`;
+      });
+      html += `</ul>`;
+    }
+
+    // commentaires
+    html += `<p><strong>Commentaires :</strong> ${sortedCom.length}</p>`;
+    if (!sortedCom.length) {
+      html += `<p class="recap-muted">Aucun commentaire pour cette date.</p>`;
+    } else {
+      html += `<ul class="recap-list">`;
+      sortedCom.forEach(c => {
+        const safe = (c.texte || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        html += `<li>${c.heure} — ${safe}</li>`;
+      });
+      html += `</ul>`;
+    }
+
+    recapContent.innerHTML = html;
+  }
+
+  function renderTables() {
+    // ----- BIBERONS -----
+    tableBiberonsBody.innerHTML = '';
+    if (!currentData.biberons.length) {
+      const tr = document.createElement('tr');
+      tr.classList.add('empty-row');
+      const td = document.createElement('td');
+      td.colSpan = 3;
+      td.textContent = 'Aucun biberon saisi pour cette date.';
+      tr.appendChild(td);
+      tableBiberonsBody.appendChild(tr);
+    } else {
+      const sorted = [...currentData.biberons].sort((a, b) => a.heure.localeCompare(b.heure));
+      sorted.forEach(bib => {
+        const tr = document.createElement('tr');
+
+        const tdHeure = document.createElement('td');
+        const tdQuantite = document.createElement('td');
+        const tdX = document.createElement('td');
+
+        tdHeure.textContent = bib.heure;
+        tdQuantite.textContent = bib.quantite + ' ml';
+
+        const btn = document.createElement('button');
+        btn.textContent = '✕';
+        btn.className = 'btn-x btn-delete-bib';
+        btn.dataset.id = bib.id;
+        tdX.appendChild(btn);
+
+        tr.appendChild(tdHeure);
+        tr.appendChild(tdQuantite);
+        tr.appendChild(tdX);
+        tableBiberonsBody.appendChild(tr);
+      });
+    }
+
+    // ----- CHANGES -----
+    tableChangesBody.innerHTML = '';
+    if (!currentData.changes.length) {
+      const tr = document.createElement('tr');
+      tr.classList.add('empty-row');
+      const td = document.createElement('td');
+      td.colSpan = 4;
+      td.textContent = 'Aucun change saisi pour cette date.';
+      tr.appendChild(td);
+      tableChangesBody.appendChild(tr);
+    } else {
+      const sortedC = [...currentData.changes].sort((a, b) => a.heure.localeCompare(b.heure));
+      sortedC.forEach(ch => {
+        const tr = document.createElement('tr');
+
+        const tdHeure = document.createElement('td');
+        const tdUrine = document.createElement('td');
+        const tdSelles = document.createElement('td');
+        const tdX = document.createElement('td');
+
+        tdHeure.textContent = ch.heure;
+        tdUrine.textContent = ch.urine ? 'Oui' : '-';
+        tdSelles.textContent = ch.selles ? 'Oui' : '-';
+
+        const btn = document.createElement('button');
+        btn.textContent = '✕';
+        btn.className = 'btn-x btn-delete-change';
+        btn.dataset.id = ch.id;
+        tdX.appendChild(btn);
+
+        tr.appendChild(tdHeure);
+        tr.appendChild(tdUrine);
+        tr.appendChild(tdSelles);
+        tr.appendChild(tdX);
+        tableChangesBody.appendChild(tr);
+      });
+    }
+
+    // ----- COMMENTAIRES -----
+    tableCommentairesBody.innerHTML = '';
+    if (!currentData.commentaires.length) {
+      const tr = document.createElement('tr');
+      tr.classList.add('empty-row');
+      const td = document.createElement('td');
+      td.colSpan = 3;
+      td.textContent = 'Aucun commentaire pour cette date.';
+      tr.appendChild(td);
+      tableCommentairesBody.appendChild(tr);
+    } else {
+      const sortedCom = [...currentData.commentaires].sort((a, b) => a.heure.localeCompare(b.heure));
+      sortedCom.forEach(c => {
+        const tr = document.createElement('tr');
+
+        const tdHeure = document.createElement('td');
+        const tdTexte = document.createElement('td');
+        const tdX = document.createElement('td');
+
+        tdHeure.textContent = c.heure;
+        tdTexte.textContent = c.texte;
+
+        const btn = document.createElement('button');
+        btn.textContent = '✕';
+        btn.className = 'btn-x btn-delete-com';
+        btn.dataset.id = c.id;
+        tdX.appendChild(btn);
+
+        tr.appendChild(tdHeure);
+        tr.appendChild(tdTexte);
+        tr.appendChild(tdX);
+
+        tableCommentairesBody.appendChild(tr);
+      });
+    }
+
+    updateRecap();
+  }
+
+  function refreshDefaultTimes() {
+    const nowStr = getCurrentTimeStr();
+    heureBiberonInput.value = nowStr;
+    heureChangeInput.value = nowStr;
+    heureCommentaireInput.value = nowStr;
+  }
+
+  // ----- EVENTS -----
+  dateInput.addEventListener('change', () => {
+    loadForCurrentDate();
+    refreshDefaultTimes();
+  });
+
+  // Ajout biberon
+  formBiberon.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const heure = heureBiberonInput.value || getCurrentTimeStr();
+    const quantite = parseInt(quantiteBiberonInput.value, 10);
+
+    if (isNaN(quantite)) {
+      alert('Merci de saisir une quantité valide.');
+      return;
+    }
+
+    const id = 'bib-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+    currentData.biberons.push({ id, heure, quantite });
+
+    saveCurrentData();
+    renderTables();
+
+    formBiberon.reset();
+    refreshDefaultTimes();
+  });
+
+  // Ajout change
+  formChange.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const heure = heureChangeInput.value || getCurrentTimeStr();
+    const urine = changeUrineInput.checked;
+    const selles = changeSellesInput.checked;
+
+    if (!urine && !selles) {
+      alert('Coche au moins Urine ou Selles pour le change.');
+      return;
+    }
+
+    const id = 'chg-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+    currentData.changes.push({ id, heure, urine, selles });
+
+    saveCurrentData();
+    renderTables();
+
+    formChange.reset();
+    refreshDefaultTimes();
+  });
+
+  // Ajout commentaire
+  formCommentaire.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const heure = heureCommentaireInput.value || getCurrentTimeStr();
+    const texte = (texteCommentaireInput.value || '').trim();
+
+    if (!texte) {
+      alert('Merci de saisir un commentaire.');
+      return;
+    }
+
+    const id = 'com-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+    currentData.commentaires.push({ id, heure, texte });
+
+    saveCurrentData();
+    renderTables();
+
+    formCommentaire.reset();
+    refreshDefaultTimes();
+  });
+
+  // Suppression biberon (delegation)
+  tableBiberonsBody.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-delete-bib');
+    if (!btn) return;
+    const id = btn.dataset.id;
+
+    currentData.biberons = currentData.biberons.filter(b => b.id !== id);
+    saveCurrentData();
+    renderTables();
+  });
+
+  // Suppression change (delegation)
+  tableChangesBody.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-delete-change');
+    if (!btn) return;
+    const id = btn.dataset.id;
+
+    currentData.changes = currentData.changes.filter(c => c.id !== id);
+    saveCurrentData();
+    renderTables();
+  });
+
+  // Suppression commentaire (delegation)
+  tableCommentairesBody.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-delete-com');
+    if (!btn) return;
+    const id = btn.dataset.id;
+
+    currentData.commentaires = currentData.commentaires.filter(c => c.id !== id);
+    saveCurrentData();
+    renderTables();
+  });
+
+  // ----- PDF -----
+  function exportPdf() {
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      alert('La bibliothèque jsPDF ne s’est pas chargée correctement.');
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    let y = 10;
+    const dateFr = formatFrenchDate(dateInput.value);
+    const totalMl = currentData.biberons.reduce((sum, b) => sum + (b.quantite || 0), 0);
+
+    doc.setFontSize(14);
+    doc.text(`Suivi bébé - ${dateFr}`, 10, y);
+    y += 8;
+
+    // Biberons
+    doc.setFontSize(12);
+    doc.text(`Biberons (${currentData.biberons.length})`, 10, y);
+    y += 6;
+
+    const sortedBib = [...currentData.biberons].sort((a, b) => a.heure.localeCompare(b.heure));
+    if (!sortedBib.length) {
+      doc.text('Aucun biberon saisi.', 14, y);
+      y += 6;
+    } else {
+      sortedBib.forEach(bib => {
         if (y > 280) { doc.addPage(); y = 10; }
-        doc.text(`Total bu : ${totalMl} ml`, 10, y);
-        y += 8;
-
-        // Changes
-        doc.text(`Changes (${currentData.changes.length})`, 10, y);
+        doc.text(`- ${bib.heure} : ${bib.quantite} ml`, 14, y);
         y += 6;
-
-        const sortedCh = [...currentData.changes].sort((a, b) => a.heure.localeCompare(b.heure));
-        if (!sortedCh.length) {
-            doc.text('Aucun change saisi.', 14, y);
-        } else {
-            sortedCh.forEach(ch => {
-                if (y > 280) { doc.addPage(); y = 10; }
-                const types = [];
-                if (ch.urine) types.push('urine');
-                if (ch.selles) types.push('selles');
-                doc.text(`- ${ch.heure} : ${types.join(' + ')}`, 14, y);
-                y += 6;
-            });
-        }
-
-        doc.save(`suivi-bebe-${dateInput.value}.pdf`);
+      });
     }
 
-    btnExportPdf.addEventListener('click', exportPdf);
+    if (y > 280) { doc.addPage(); y = 10; }
+    doc.text(`Total bu : ${totalMl} ml`, 10, y);
+    y += 8;
 
-    // Init : date du jour + chargement
-    (function init() {
-        dateInput.value = getTodayStr();
-        loadForCurrentDate();
-        refreshDefaultTimes();
-    })();
+    // Changes
+    doc.text(`Changes (${currentData.changes.length})`, 10, y);
+    y += 6;
+
+    const sortedCh = [...currentData.changes].sort((a, b) => a.heure.localeCompare(b.heure));
+    if (!sortedCh.length) {
+      doc.text('Aucun change saisi.', 14, y);
+      y += 6;
+    } else {
+      sortedCh.forEach(ch => {
+        if (y > 280) { doc.addPage(); y = 10; }
+        const types = [];
+        if (ch.urine) types.push('urine');
+        if (ch.selles) types.push('selles');
+        doc.text(`- ${ch.heure} : ${types.join(' + ')}`, 14, y);
+        y += 6;
+      });
+    }
+
+    // Commentaires
+    if (y > 280) { doc.addPage(); y = 10; }
+    y += 4;
+    doc.text(`Commentaires (${currentData.commentaires.length})`, 10, y);
+    y += 6;
+
+    const sortedCom = [...currentData.commentaires].sort((a, b) => a.heure.localeCompare(b.heure));
+    if (!sortedCom.length) {
+      doc.text('Aucun commentaire.', 14, y);
+    } else {
+      sortedCom.forEach(c => {
+        if (y > 280) { doc.addPage(); y = 10; }
+        // on coupe si c'est long (simple)
+        const line = `- ${c.heure} : ${c.texte}`;
+        const lines = doc.splitTextToSize(line, 180);
+        doc.text(lines, 14, y);
+        y += 6 * lines.length;
+      });
+    }
+
+    doc.save(`suivi-bebe-${dateInput.value}.pdf`);
+  }
+
+  btnExportPdf.addEventListener('click', exportPdf);
+
+  // ----- INIT -----
+  (function init() {
+    dateInput.value = getTodayStr();
+    loadForCurrentDate();
+    refreshDefaultTimes();
+  })();
+
+
+  // =====================================================
+  //  STATS / CHART (bloc WP) - je le laisse, inchangé
+  //  ⚠️ Si tu es en HTML pur (pas WP), ajaxUrl/ajaxNonce
+  //  n'existent pas et ça plantera.
+  // =====================================================
+  const selectDates = document.getElementById('bibitimeStatsDates');
+  const info = document.getElementById('bibitimeStatsInfo');
+  const canvas = document.getElementById('bibitimeStatsChart');
+
+  let allStats = []; // [{date: 'YYYY-MM-DD', total_ml: 480}, ...]
+  let chart = null;
+
+  function loadStats() {
+    // Protection si on n'est pas dans WP / si les variables n'existent pas
+    if (typeof ajaxUrl === 'undefined' || typeof ajaxNonce === 'undefined') {
+      info.textContent = 'Mode HTML : statistiques WP désactivées (ajaxUrl/ajaxNonce absents).';
+      return;
+    }
+    if (typeof Chart === 'undefined') {
+      info.textContent = 'Chart.js non chargé.';
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('action', 'bibitime_get_stats');
+    formData.append('security', ajaxNonce);
+
+    fetch(ajaxUrl, {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: formData
+    })
+      .then(r => r.json())
+      .then(json => {
+        if (!json || !json.success || !json.data || !Array.isArray(json.data.stats)) {
+          info.textContent = 'Aucune donnée trouvée pour le moment.';
+          return;
+        }
+
+        allStats = json.data.stats;
+
+        if (!allStats.length) {
+          info.textContent = 'Aucune journée enregistrée pour le moment.';
+          return;
+        }
+
+        selectDates.innerHTML = '';
+        allStats.forEach(stat => {
+          const opt = document.createElement('option');
+          opt.value = stat.date;
+          opt.textContent = `${formatFrenchDate(stat.date)} — ${stat.total_ml} ml`;
+          selectDates.appendChild(opt);
+        });
+
+        // Par défaut : sélectionne tout (comme ton code)
+        const nb = allStats.length;
+        for (let i = allStats.length - nb; i < allStats.length; i++) {
+          if (selectDates.options[i]) selectDates.options[i].selected = true;
+        }
+
+        updateChart();
+      })
+      .catch(() => {
+        info.textContent = 'Erreur lors du chargement des statistiques.';
+      });
+  }
+
+  function updateChart() {
+    if (typeof Chart === 'undefined') return;
+
+    const selectedValues = Array.from(selectDates.selectedOptions).map(o => o.value);
+    const selectedStats = allStats
+      .filter(s => selectedValues.includes(s.date))
+      .sort((a, b) => a.date.localeCompare(b.date));
+
+    if (!selectedStats.length) {
+      info.textContent = 'Sélectionne au moins une date pour afficher le graphique.';
+      if (chart) { chart.destroy(); chart = null; }
+      return;
+    }
+
+    info.textContent = selectedStats.length === 1
+      ? 'Une seule date sélectionnée. Ajoute une deuxième date pour voir la progression.'
+      : `Comparaison sur ${selectedStats.length} jour(s).`;
+
+    const labels = selectedStats.map(s => formatFrenchDate(s.date));
+    const data = selectedStats.map(s => s.total_ml);
+
+    const ctx = canvas.getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Total bu (ml)',
+          data,
+          tension: 0.3,
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        aspectRatio: 1,
+        plugins: {
+          legend: { display: true },
+          tooltip: { mode: 'index', intersect: false }
+        },
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: 'ml' } },
+          x: { title: { display: true, text: 'Date' } }
+        }
+      }
+    });
+  }
+
+  if (selectDates) selectDates.addEventListener('change', updateChart);
+  document.addEventListener('DOMContentLoaded', loadStats);
 </script>
+
 </body>
 </html>
