@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>BibiTime - Suivi biberons & changes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg-card: #020617;
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.15);
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+            --danger: #f97373;
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #020617 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 1100px;
+            padding: 1.8rem 1.5rem 0.5rem;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        h1 span.icon {
+            font-size: 1.6rem;
+        }
+
+        .subtitle {
+            margin-top: .3rem;
+            font-size: .9rem;
+            color: var(--muted);
+        }
+
+        main {
+            width: 100%;
+            max-width: 1100px;
+            padding: 0 1.5rem 2rem;
+        }
+
+        .date-bar {
+            margin: 1rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            flex-wrap: wrap;
+        }
+
+        .date-bar label {
+            font-size: .9rem;
+            color: var(--muted);
+        }
+
+        .date-bar input[type="date"] {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            color: var(--text);
+            padding: .4rem .7rem;
+            border-radius: 999px;
+            font-size: .9rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.2rem;
+        }
+
+        @media (max-width: 800px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.9));
+            border-radius: var(--radius);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.8);
+            padding: 1.2rem;
+            backdrop-filter: blur(16px);
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+        }
+
+        .card h2 span {
+            font-size: 1.2rem;
+        }
+
+        .card small {
+            display: block;
+            margin-top: .2rem;
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        form {
+            margin-top: .8rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: .6rem .8rem;
+            align-items: end;
+        }
+
+        form .field {
+            display: flex;
+            flex-direction: column;
+            gap: .2rem;
+            font-size: .8rem;
+        }
+
+        label {
+            color: var(--muted);
+        }
+
+        input[type="time"],
+        input[type="number"] {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            border-radius: 999px;
+            padding: .4rem .7rem;
+            color: var(--text);
+            font-size: .9rem;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .checkbox-row {
+            display: flex;
+            gap: .7rem;
+            align-items: center;
+            font-size: .85rem;
+        }
+
+        .checkbox-row label {
+            display: flex;
+            align-items: center;
+            gap: .25rem;
+            cursor: pointer;
+        }
+
+        .checkbox-row input[type="checkbox"] {
+            accent-color: var(--accent);
+        }
+
+        button[type="submit"] {
+            grid-column: 1 / -1;
+            margin-top: .1rem;
+            border: none;
+            border-radius: 999px;
+            padding: .45rem .9rem;
+            font-size: .9rem;
+            cursor: pointer;
+            background: radial-gradient(circle at top left, var(--accent), #0ea5e9);
+            color: #0b1120;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
+            transition: transform .1s ease, box-shadow .1s ease, translate .1s ease;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(56, 189, 248, 0.55);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+            box-shadow: 0 6px 15px rgba(56, 189, 248, 0.35);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: .85rem;
+            background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: rgba(15, 23, 42, 0.96);
+        }
+
+        th, td {
+            padding: .45rem .55rem;
+            text-align: left;
+        }
+
+        th {
+            font-weight: 500;
+            font-size: .8rem;
+            color: var(--muted);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        tbody tr:nth-child(odd) {
+            background: rgba(15, 23, 42, 0.75);
+        }
+
+        tbody tr:hover {
+            background: rgba(56, 189, 248, 0.12);
+        }
+
+        .empty-row td {
+            text-align: center;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .2rem;
+            padding: .15rem .4rem;
+            border-radius: 999px;
+            font-size: .75rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        /* Bouton X de suppression */
+        .btn-x {
+            border: none;
+            border-radius: 999px;
+            padding: 0.1rem 0.45rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            background: rgba(248, 113, 113, 0.12);
+            color: #fecaca;
+            transition: background .15s ease, transform .1s ease;
+        }
+
+        .btn-x:hover {
+            background: rgba(248, 113, 113, 0.28);
+            transform: translateY(-1px);
+        }
+
+        .btn-x:active {
+            transform: translateY(0);
+        }
+
+        /* Récapitulatif */
+        .recap-card {
+            margin-top: 1.5rem;
+        }
+
+        .recap-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .recap-content {
+            margin-top: .8rem;
+            font-size: .85rem;
+        }
+
+        .recap-list {
+            margin: .2rem 0 .8rem 1.1rem;
+            padding: 0;
+            list-style: disc;
+        }
+
+        .recap-muted {
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .btn-secondary {
+            border-radius: 999px;
+            padding: .4rem .9rem;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text);
+            font-size: .85rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1><span class="icon">🍼</span> BibiTime</h1>
+        <div class="subtitle">
+            Suivi quotidien des biberons et des changes de bébé.
+        </div>
+
+</header>
+
+<main>
+    <!-- Choix de la date -->
+    <div class="date-bar">
+        <label for="dateJour">Date du suivi :</label>
+        <input type="date" id="dateJour">
+        <span class="tag">Données sauvegardées automatiquement par jour</span>
+    </div>
+
+    <div class="grid">
+        <!-- Biberons -->
+        <section class="card">
+            <h2><span>🍼</span> Biberons</h2>
+            <small>Ajoute l’heure de la prise et la quantité bue.</small>
+
+            <form id="formBiberon">
+                <div class="field">
+                    <label for="heureBiberon">Heure du biberon</label>
+                    <input type="time" id="heureBiberon" required>
+                </div>
+                <div class="field">
+                    <label for="quantiteBiberon">Quantité (ml)</label>
+                    <!-- PATCH : step="1" pour pouvoir mettre 55, 61, 65, etc. -->
+                    <input type="number" id="quantiteBiberon" min="0" step="1" required>
+                </div>
+                <button type="submit">Ajouter le biberon</button>
+            </form>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Heure</th>
+                    <th>Quantité</th>
+                    <th></th> <!-- colonne X -->
+                </tr>
+                </thead>
+                <tbody id="tableBiberonsBody">
+                <!-- Lignes ajoutées en JS -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Changes -->
+        <section class="card">
+            <h2><span>🧷</span> Changes</h2>
+            <small>Note si c’est urine, selles (ou les deux) avec l’heure du change.</small>
+
+            <form id="formChange">
+                <div class="field">
+                    <label for="heureChange">Heure du change</label>
+                    <input type="time" id="heureChange" required>
+                </div>
+                <div class="field">
+                    <label>Type de change</label>
+                    <div class="checkbox-row">
+                        <label>
+                            <input type="checkbox" id="changeUrine">
+                            Urine
+                        </label>
+                        <label>
+                            <input type="checkbox" id="changeSelles">
+                            Selles
+                        </label>
+                    </div>
+                </div>
+                <button type="submit">Ajouter le change</button>
+            </form>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Heure</th>
+                    <th>Urine</th>
+                    <th>Selles</th>
+                    <th></th> <!-- colonne X -->
+                </tr>
+                </thead>
+                <tbody id="tableChangesBody">
+                <!-- Lignes ajoutées en JS -->
+                </tbody>
+            </table>
+        </section>
+         <section class="card">
+  <h2><span>📝</span> Commentaires</h2>
+  <small>Ajoute une note (heure + commentaire) pour la journée.</small>
+
+  <form id="formCommentaire">
+    <div class="field">
+      <label for="heureCommentaire">Heure</label>
+      <input type="time" id="heureCommentaire" required>
+    </div>
+
+    <div class="field" style="grid-column: 1 / -1;">
+      <label for="texteCommentaire">Commentaire</label>
+      <textarea id="texteCommentaire" rows="2" placeholder="Ex: prise de médicament, état, fièvre, rdv..." required></textarea>
+    </div>
+
+    <button type="submit">Ajouter le commentaire</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Heure</th>
+        <th>Commentaire</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="tableCommentairesBody"></tbody>
+  </table>
+</section>
+
+  
+    </div>
+
+    <!-- Récapitulatif du jour -->
+    <section class="card recap-card">
+        <div class="recap-header">
+            <div>
+                <h2>📊 Récapitulatif du jour</h2>
+                <small>Vue globale des biberons, des changes et du total bu pour la date sélectionnée.</small>
+            </div>
+            <button id="btnExportPdf" type="button" class="btn-secondary">
+                📄 Exporter en PDF
+            </button>
+        </div>
+        <div id="recapContent" class="recap-content">
+            <!-- Récap généré en JS -->
+        </div>
+    </section>
+   
+</main>
+
+<!-- jsPDF pour l'export PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+    const dateInput = document.getElementById('dateJour');
+    const tableBiberonsBody = document.getElementById('tableBiberonsBody');
+    const tableChangesBody = document.getElementById('tableChangesBody');
+    const formBiberon = document.getElementById('formBiberon');
+    const formChange = document.getElementById('formChange');
+    const heureBiberonInput = document.getElementById('heureBiberon');
+    const quantiteBiberonInput = document.getElementById('quantiteBiberon');
+    const heureChangeInput = document.getElementById('heureChange');
+    const changeUrineInput = document.getElementById('changeUrine');
+    const changeSellesInput = document.getElementById('changeSelles');
+    const recapContent = document.getElementById('recapContent');
+    const btnExportPdf = document.getElementById('btnExportPdf');
+
+    let currentData = { biberons: [], changes: [] };
+
+    function getTodayStr() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    function getCurrentTimeStr() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        return `${h}:${m}`;
+    }
+
+    function formatFrenchDate(dateStr) {
+        if (!dateStr) return '-';
+        const parts = dateStr.split('-');
+        if (parts.length !== 3) return dateStr;
+        const [y, m, d] = parts;
+        return `${d}/${m}/${y}`;
+    }
+
+    function getStorageKey() {
+        return 'suivi-bebe-' + dateInput.value;
+    }
+
+    function ensureIds() {
+        // ajoute un id unique à chaque biberon / change s'il n'existe pas (pour les anciennes données)
+        currentData.biberons.forEach((b, idx) => {
+            if (!b.id) {
+                b.id = 'bib-' + Date.now() + '-' + idx + '-' + Math.random().toString(16).slice(2);
+            }
+        });
+        currentData.changes.forEach((c, idx) => {
+            if (!c.id) {
+                c.id = 'chg-' + Date.now() + '-' + idx + '-' + Math.random().toString(16).slice(2);
+            }
+        });
+    }
+
+    function loadForCurrentDate() {
+        const saved = localStorage.getItem(getStorageKey());
+        if (saved) {
+            try {
+                currentData = JSON.parse(saved);
+                if (!currentData.biberons) currentData.biberons = [];
+                if (!currentData.changes) currentData.changes = [];
+            } catch (e) {
+                currentData = { biberons: [], changes: [] };
+            }
+        } else {
+            currentData = { biberons: [], changes: [] };
+        }
+        ensureIds();
+        saveCurrentData(); // pour mettre à jour les anciens en localStorage
+        renderTables();
+    }
+
+    function saveCurrentData() {
+        localStorage.setItem(getStorageKey(), JSON.stringify(currentData));
+    }
+
+    function updateRecap() {
+        const dateFr = formatFrenchDate(dateInput.value);
+        const nbBiberons = currentData.biberons.length;
+        const totalMl = currentData.biberons.reduce((sum, b) => sum + (b.quantite || 0), 0);
+        const sortedBib = [...currentData.biberons].sort((a, b) => a.heure.localeCompare(b.heure));
+        const sortedCh = [...currentData.changes].sort((a, b) => a.heure.localeCompare(b.heure));
+
+        let html = '';
+
+        html += `<p><strong>Date :</strong> ${dateFr}</p>`;
+        html += `<p><strong>Biberons :</strong> ${nbBiberons} pour un total de <strong>${totalMl} ml</strong></p>`;
+
+        if (!sortedBib.length) {
+            html += `<p class="recap-muted">Aucun biberon saisi pour cette date.</p>`;
+        } else {
+            html += `<ul class="recap-list">`;
+            sortedBib.forEach(bib => {
+                html += `<li>${bib.heure} — ${bib.quantite} ml</li>`;
+            });
+            html += `</ul>`;
+        }
+
+        html += `<p><strong>Changes :</strong> ${sortedCh.length}</p>`;
+
+        if (!sortedCh.length) {
+            html += `<p class="recap-muted">Aucun change saisi pour cette date.</p>`;
+        } else {
+            html += `<ul class="recap-list">`;
+            sortedCh.forEach(ch => {
+                const types = [];
+                if (ch.urine) types.push('urine');
+                if (ch.selles) types.push('selles');
+                html += `<li>${ch.heure} — ${types.join(' + ')}</li>`;
+            });
+            html += `</ul>`;
+        }
+
+        recapContent.innerHTML = html;
+    }
+
+    function renderTables() {
+        // Biberons
+        tableBiberonsBody.innerHTML = '';
+        if (!currentData.biberons.length) {
+            const tr = document.createElement('tr');
+            tr.classList.add('empty-row');
+            const td = document.createElement('td');
+            td.colSpan = 3;
+            td.textContent = 'Aucun biberon saisi pour cette date.';
+            tr.appendChild(td);
+            tableBiberonsBody.appendChild(tr);
+        } else {
+            const sorted = [...currentData.biberons].sort((a, b) => a.heure.localeCompare(b.heure));
+            sorted.forEach(bib => {
+                const tr = document.createElement('tr');
+                const tdHeure = document.createElement('td');
+                const tdQuantite = document.createElement('td');
+                const tdX = document.createElement('td');
+
+                tdHeure.textContent = bib.heure;
+                tdQuantite.textContent = bib.quantite + ' ml';
+
+                const btn = document.createElement('button');
+                btn.textContent = '✕';
+                btn.className = 'btn-x btn-delete-bib';
+                btn.dataset.id = bib.id;
+                tdX.appendChild(btn);
+
+                tr.appendChild(tdHeure);
+                tr.appendChild(tdQuantite);
+                tr.appendChild(tdX);
+                tableBiberonsBody.appendChild(tr);
+            });
+        }
+
+        // Changes
+        tableChangesBody.innerHTML = '';
+        if (!currentData.changes.length) {
+            const tr = document.createElement('tr');
+            tr.classList.add('empty-row');
+            const td = document.createElement('td');
+            td.colSpan = 4;
+            td.textContent = 'Aucun change saisi pour cette date.';
+            tr.appendChild(td);
+            tableChangesBody.appendChild(tr);
+        } else {
+            const sortedC = [...currentData.changes].sort((a, b) => a.heure.localeCompare(b.heure));
+            sortedC.forEach(ch => {
+                const tr = document.createElement('tr');
+                const tdHeure = document.createElement('td');
+                const tdUrine = document.createElement('td');
+                const tdSelles = document.createElement('td');
+                const tdX = document.createElement('td');
+
+                tdHeure.textContent = ch.heure;
+                tdUrine.textContent = ch.urine ? 'Oui' : '-';
+                tdSelles.textContent = ch.selles ? 'Oui' : '-';
+
+                const btn = document.createElement('button');
+                btn.textContent = '✕';
+                btn.className = 'btn-x btn-delete-change';
+                btn.dataset.id = ch.id;
+                tdX.appendChild(btn);
+
+                tr.appendChild(tdHeure);
+                tr.appendChild(tdUrine);
+                tr.appendChild(tdSelles);
+                tr.appendChild(tdX);
+                tableChangesBody.appendChild(tr);
+            });
+        }
+
+        // Met à jour le récap
+        updateRecap();
+    }
+
+    function refreshDefaultTimes() {
+        const nowStr = getCurrentTimeStr();
+        heureBiberonInput.value = nowStr;
+        heureChangeInput.value = nowStr;
+    }
+
+    // Changement de date
+    dateInput.addEventListener('change', () => {
+        loadForCurrentDate();
+        refreshDefaultTimes();
+    });
+
+    // Formulaire biberon
+    formBiberon.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const heure = heureBiberonInput.value || getCurrentTimeStr();
+        const quantite = parseInt(quantiteBiberonInput.value, 10);
+
+        if (isNaN(quantite)) {
+            alert('Merci de saisir une quantité valide.');
+            return;
+        }
+
+        const id = 'bib-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+        currentData.biberons.push({ id, heure, quantite });
+        saveCurrentData();
+        renderTables();
+
+        formBiberon.reset();
+        refreshDefaultTimes();
+    });
+
+    // Formulaire change
+    formChange.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const heure = heureChangeInput.value || getCurrentTimeStr();
+        const urine = changeUrineInput.checked;
+        const selles = changeSellesInput.checked;
+
+        if (!urine && !selles) {
+            alert('Coche au moins Urine ou Selles pour le change.');
+            return;
+        }
+
+        const id = 'chg-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+        currentData.changes.push({ id, heure, urine, selles });
+        saveCurrentData();
+        renderTables();
+
+        formChange.reset();
+        refreshDefaultTimes();
+    });
+
+    // Suppression biberon (delegation)
+    tableBiberonsBody.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-delete-bib');
+        if (!btn) return;
+        const id = btn.dataset.id;
+        currentData.biberons = currentData.biberons.filter(b => b.id !== id);
+        saveCurrentData();
+        renderTables();
+    });
+
+    // Suppression change (delegation)
+    tableChangesBody.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-delete-change');
+        if (!btn) return;
+        const id = btn.dataset.id;
+        currentData.changes = currentData.changes.filter(c => c.id !== id);
+        saveCurrentData();
+        renderTables();
+    });
+
+    // Export PDF
+    function exportPdf() {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+            alert('La bibliothèque jsPDF ne s’est pas chargée correctement.');
+            return;
+        }
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        let y = 10;
+        const dateFr = formatFrenchDate(dateInput.value);
+        const totalMl = currentData.biberons.reduce((sum, b) => sum + (b.quantite || 0), 0);
+
+        doc.setFontSize(14);
+        doc.text(`Suivi bébé - ${dateFr}`, 10, y);
+        y += 8;
+
+        // Biberons
+        doc.setFontSize(12);
+        doc.text(`Biberons (${currentData.biberons.length})`, 10, y);
+        y += 6;
+
+        const sortedBib = [...currentData.biberons].sort((a, b) => a.heure.localeCompare(b.heure));
+        if (!sortedBib.length) {
+            doc.text('Aucun biberon saisi.', 14, y);
+            y += 6;
+        } else {
+            sortedBib.forEach(bib => {
+                if (y > 280) { doc.addPage(); y = 10; }
+                doc.text(`- ${bib.heure} : ${bib.quantite} ml`, 14, y);
+                y += 6;
+            });
+        }
+
+        if (y > 280) { doc.addPage(); y = 10; }
+        doc.text(`Total bu : ${totalMl} ml`, 10, y);
+        y += 8;
+
+        // Changes
+        doc.text(`Changes (${currentData.changes.length})`, 10, y);
+        y += 6;
+
+        const sortedCh = [...currentData.changes].sort((a, b) => a.heure.localeCompare(b.heure));
+        if (!sortedCh.length) {
+            doc.text('Aucun change saisi.', 14, y);
+        } else {
+            sortedCh.forEach(ch => {
+                if (y > 280) { doc.addPage(); y = 10; }
+                const types = [];
+                if (ch.urine) types.push('urine');
+                if (ch.selles) types.push('selles');
+                doc.text(`- ${ch.heure} : ${types.join(' + ')}`, 14, y);
+                y += 6;
+            });
+        }
+
+        doc.save(`suivi-bebe-${dateInput.value}.pdf`);
+    }
+
+    btnExportPdf.addEventListener('click', exportPdf);
+
+    // Init : date du jour + chargement
+    (function init() {
+        dateInput.value = getTodayStr();
+        loadForCurrentDate();
+        refreshDefaultTimes();
+    })();
+</script>
+</body>
+</html>
